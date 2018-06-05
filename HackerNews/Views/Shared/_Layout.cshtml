@@ -27,11 +27,24 @@
             <p>&copy; @DateTime.Now.Year - My Hacker News Application</p>
         </footer>
     </div>
-
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    @*<script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBLLpb62hrCVgDwj51Fs2rTHvqsEmlUU68",
+            authDomain: "hackernews-1ee4b.firebaseapp.com",
+            databaseURL: "https://hackernews-1ee4b.firebaseio.com",
+            projectId: "hackernews-1ee4b",
+            storageBucket: "",
+            messagingSenderId: "1061195424817"
+        };
+        firebase.initializeApp(config);
+    </script>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="~/Scripts/indexController.js"></script>
 </body>
 </html>
