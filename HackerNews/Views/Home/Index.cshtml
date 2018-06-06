@@ -7,66 +7,21 @@
         <h2>Top Stories</h2>
         <div ng-app="myApp" ng-controller="myCtrl">
 
-            @*<div data-ng-init="init()">
-            <ul>
-                <li ng-repeat="x in finalData | filter:{title: ''}">
-                    <b>Score: </b> {{ x.score }} <b>Date: </b> {{ x.time * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}
-                    <br />
-                    <a href="{{x.url}}" target="_blank">
-                        <b>Title:</b> {{ x.title }}
+            <div data-ng-init="init()">
+
+                <input type='text' ng-model='searchText' placeholder="Search... " />
+
+                <ul>
+                    <li ng-repeat="x in finalData | filter:searchText">
+                        <a href="{{x.url}}" target="_blank">
+                            <b>Title:</b> {{ x.title }}
+                        </a>
                         <b>Author:</b> {{ x.by }}
-                    </a>
-
-                </li>
-            </ul>
-        </div>*@
-            <div id="items">
-
+                        <br />
+                        <b>Score: </b> {{ x.score }} <b>Date: </b> {{ x.time * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    var ref = new Firebase("http://hacker-news.firebaseio.com/v0/");
-	var itemRef = ref.child('item');
-
-	var topStories = [];
-
-	var storyCallback = function(snapshot) {
-		var story = snapshot.val();
-		var html = '';
-        
-        if(story.score) {
-            html = '<i>'+story.score+'</i> <a href="'+story.url+'" id="article_a">'+story.title+'</a>'		
-        }
-            
-	    document.getElementById(topStories.indexOf(story.id)).innerHTML = html;    
-	}
-
-	ref.child('topstories').once('value', function(snapshot) {
-		topStories = snapshot.val();
-		
-		for(var i = 0; i < topStories.length; i++) {
-			var element = document.createElement("P");			
-			element.id = i;
-			document.getElementById('items').appendChild(element);
-
-			itemRef.child(topStories[i]).on('value', storyCallback);
-		}
-	});
-
-	ref.child('topstories').on('child_changed', function(snapshot, prevChildName) {
-		var ref = snapshot.ref()
-		var index = ref.name();
-
-		var oldItemId = topStories[index];
-		itemRef.child(oldItemId).off();
-
-		var newItemId = snapshot.val();	
-
-		topStories[index] = newItemId
-		itemRef.child(newItemId).on('value', storyCallback);
-	});
-</script>
